@@ -10,8 +10,16 @@ function App() {
 
   return (
     <>
-      <div className='App'>
-      <SceneComponent antialias onSceneReady={onSceneReady} onRender={onRender} style={{ width: '100vw', height: '100vh' ,overflow:'hidden' }} className="canvas" />
+      <div className='App' >
+      <div id='canvasContainer'>
+      <SceneComponent antialias onSceneReady={onSceneReady} onRender={onRender} style={{ width: '100vw', height: '100vh' ,overflow:'hidden' }}  />
+      <div id="buttonContainer">
+        <button id="enqueue">Enqueue</button>
+        <button id="dequeue">Dequeue</button>
+      </div>
+      </div>
+     
+      
   </div>
       
     </>

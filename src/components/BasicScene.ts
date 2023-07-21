@@ -3,14 +3,15 @@ import { FreeCamera, Vector3, HemisphericLight, MeshBuilder } from "@babylonjs/c
 import SceneComponent from 'babylonjs-hook'
 import * as BABYLON from '@babylonjs/core'
 import { Texture } from "@babylonjs/core";
-import environment from '../assets/environments/environment.env'
-import diffuse from '../assets/textures/asphalt/diffuse.jpg'
+import hexToColor3 from "./utils"
+import { Vector3 } from "@babylonjs/core";
+import Queue from "./dataStructure/Queue";
 
 
 
 
 
-let sphere
+
 
 export const onSceneReady = (scene:BABYLON.Scene) => {
   //   // This creates and positions a free camera (non-mesh)
@@ -28,22 +29,13 @@ export const onSceneReady = (scene:BABYLON.Scene) => {
 
   // Set the camera speed (change as per your requirement)
   camera.speed = 0.25;
-  const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
+  const light = new BABYLON.HemisphericLight("light",new Vector3(1, 1, 0));
   camera.attachControl(canvas, true);
 
-  // Default intensity is 1. Let's dim the light a small amount
-  light.intensity = 1;
-//sphere
-sphere = MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
-sphere.position.y = 1
-
-//ground
-const ground = MeshBuilder.CreateGround("ground", { width: 6, height: 6 }, scene);
-  const groundMaterial = new BABYLON.PBRMaterial("groundMaterial")
-  
-  
-
-
+   const queue  = new Queue()
+   queue.init()
+   document.getElementById("enqueue").addEventListener("click",()=> queue.enqueueBox())
+   document.getElementById("dequeue").addEventListener("click",()=> queue.dequeueBox())
 
 
 
@@ -54,10 +46,5 @@ const ground = MeshBuilder.CreateGround("ground", { width: 6, height: 6 }, scene
  * Will run on every frame render.  We are spinning the box on y-axis.
  */
 export const onRender = (scene) => {
-    // if (sphere !== undefined) {
-    //   const deltaTimeInMillis = scene.getEngine().getDeltaTime();
-
-    //   const rpm = 10;
-    //   sphere.rotation.y += (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000);
-    // }
+   
 };
