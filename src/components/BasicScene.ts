@@ -32,11 +32,12 @@ export const onSceneReady = (scene:BABYLON.Scene) => {
   const light = new BABYLON.HemisphericLight("light",new Vector3(1, 1, 0));
   camera.attachControl(canvas, true);
 
-   const queue  = new Queue()
-   queue.init()
-   document.getElementById("enqueue").addEventListener("click",()=> queue.enqueueBox())
-   document.getElementById("dequeue").addEventListener("click",()=> queue.dequeueBox())
+   
+   document.getElementById("enqueue").addEventListener("click",()=> queue.enqueue())
+   document.getElementById("dequeue").addEventListener("click",()=> queue.dequeue())
 
+    const queue = new Queue()
+    queue.init()
 
 
 };

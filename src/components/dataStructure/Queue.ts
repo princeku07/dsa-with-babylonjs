@@ -1,43 +1,39 @@
-import * as BABYLON from '@babylonjs/core'
-import {getRandomColor} from '../utils'
-import { hexToColor3 } from '../utils'
+import * as BABYLON from "@babylonjs/core"
+import { getRandomColor, hexToColor3 } from "../utils"
+
 
 class Queue {
-   constructor(){
-    this.queue = [];
-    this.spacing = 0.2; 
-    
-   }
 
-   enqueueBox() {
-    const box = BABYLON.MeshBuilder.CreateBox("box", { size: 1 }, this.scene);
-    const boxMaterial = new BABYLON.StandardMaterial("boxMaterial")
-    boxMaterial.diffuseColor = hexToColor3(getRandomColor())
-    box.material = boxMaterial
-    box.position.x = -(this.queue.length * (1 + this.spacing))  ;
-    this.queue.push(box);
-    console.log(this.queue.length)
-  
-
-   
-  }
-
-  dequeueBox() {
-    if (this.queue.length > 0) {
-      const box = this.queue.shift();
-      box.dispose(); // Remove the box from the scene
-
-    // Rearrange positions of remaining boxes
-    for (let i = 0; i < this.queue.length; i++) {
-    this.queue[i].position.x = -(i *(1 + this.spacing));
-  }
+    constructor(){
+        this.queue = []
+        this.spacing = 0.2
     }
-  }
 
-  init() {
-    this.enqueueBox(); // Enqueue an initial element
-  }
+    enqueue(){
+        const box = new BABYLON.MeshBuilder.CreateBox("box",{size:1})
+        const boxMaterial = new BABYLON.StandardMaterial("BoxMat")
+        boxMaterial.diffuseColor = hexToColor3(getRandomColor())
+        box.material = boxMaterial
+        box.position.x = -(this.queue.length * (1+this.spacing))
+        this.queue.push(box)
+    }
 
+    dequeue(){
+       if(this.queue.length > 0){
+        const box = this.queue.shift()
+        box.dispose()
+        
+        for(let i = 0; i< this.queue.length; i++){
+            this.queue[i].position.x = -(i * (1 + this.spacing))
+        }
 
+       }
+
+    }
+
+    init(){
+        this.enqueue()
+    }
 }
-export default Queue;
+
+export default Queue
